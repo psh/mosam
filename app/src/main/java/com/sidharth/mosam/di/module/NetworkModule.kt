@@ -4,6 +4,8 @@ import com.sidharth.mosam.data.remote.RemoteDataSource
 import com.sidharth.mosam.data.remote.WeatherService
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -18,9 +20,18 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideWeatherService(): WeatherService {
+        // Log the network calls
+        val okClient = OkHttpClient.Builder()
+            .addNetworkInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            ).build()
+
         val retrofit: Retrofit by lazy {
             Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(okClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
