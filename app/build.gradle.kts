@@ -1,10 +1,10 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
 }
+
+val mosamApiKey : String by project
 
 android {
     namespace = "com.sidharth.mosam"
@@ -18,11 +18,7 @@ android {
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField(
-            "String",
-            "API_KEY",
-            "\"${gradleLocalProperties(rootDir).getProperty("API_KEY")}\""
-        )
+        buildConfigField("String", "API_KEY", mosamApiKey)
     }
 
     buildTypes {
