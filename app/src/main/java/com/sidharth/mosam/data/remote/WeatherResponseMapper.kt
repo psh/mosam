@@ -1,8 +1,5 @@
-package com.sidharth.mosam.data.mapper
+package com.sidharth.mosam.data.remote
 
-import com.sidharth.mosam.data.remote.CurrentWeather
-import com.sidharth.mosam.data.remote.DailyWeather
-import com.sidharth.mosam.data.remote.WeatherResponse
 import com.sidharth.mosam.domain.model.DailyForecast
 import com.sidharth.mosam.domain.model.Weather
 import com.sidharth.mosam.domain.model.WeatherData

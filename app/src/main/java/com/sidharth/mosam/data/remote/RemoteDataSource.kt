@@ -1,6 +1,5 @@
 package com.sidharth.mosam.data.remote
 
-import com.sidharth.mosam.data.mapper.WeatherResponseMapper
 import com.sidharth.mosam.domain.model.EmptyWeatherData
 import com.sidharth.mosam.domain.model.WeatherData
 
@@ -12,11 +11,10 @@ class RemoteDataSource(
         longitude: Double
     ): WeatherData {
         val response = weatherService.getWeatherData(latitude, longitude)
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return WeatherResponseMapper.mapWeatherResponseToWeatherData(it)
-            }
+        return if (response != null) {
+            WeatherResponseMapper.mapWeatherResponseToWeatherData(response)
+        } else {
+            EmptyWeatherData.instance
         }
-        return EmptyWeatherData.instance
     }
 }

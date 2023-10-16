@@ -64,10 +64,11 @@ dependencies {
     implementation(libs.sqldelight.primitive.adapters)
     implementation(libs.sqldelight.coroutines.extensions)
 
-    // networking - Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
+    // networking - Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
     implementation(libs.logging.interceptor)
+    implementation(libs.gson)
 
     // di - Koin
     implementation(libs.koin.core)
