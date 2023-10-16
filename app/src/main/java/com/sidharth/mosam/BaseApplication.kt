@@ -1,9 +1,9 @@
 package com.sidharth.mosam
 
 import android.app.Application
-import com.sidharth.mosam.di.component.AppComponent
+import com.sidharth.mosam.di.AppComponent
 import com.sidharth.mosam.di.component.DaggerAppComponent
-import com.sidharth.mosam.di.module.DatabaseModule
+import com.sidharth.mosam.di.DatabaseModule
 
 class BaseApplication : Application() {
     companion object {

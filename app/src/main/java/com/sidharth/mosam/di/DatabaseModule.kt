@@ -1,4 +1,4 @@
-package com.sidharth.mosam.di.module
+package com.sidharth.mosam.di
 
 import android.app.Application
 import app.cash.sqldelight.db.SqlDriver

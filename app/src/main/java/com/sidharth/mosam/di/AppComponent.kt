@@ -1,8 +1,5 @@
-package com.sidharth.mosam.di.component
+package com.sidharth.mosam.di
 
-import com.sidharth.mosam.di.module.AppModule
-import com.sidharth.mosam.di.module.DatabaseModule
-import com.sidharth.mosam.di.module.NetworkModule
 import com.sidharth.mosam.ui.MainActivity
 import dagger.Component
 import javax.inject.Singleton

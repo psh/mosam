@@ -1,4 +1,4 @@
-package com.sidharth.mosam.di.module
+package com.sidharth.mosam.di
 
 import com.sidharth.mosam.data.remote.RemoteDataSource
 import com.sidharth.mosam.data.remote.WeatherService
