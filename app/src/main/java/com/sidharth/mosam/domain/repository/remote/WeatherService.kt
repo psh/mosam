@@ -1,4 +1,4 @@
-package com.sidharth.mosam.data.remote
+package com.sidharth.mosam.domain.repository.remote
 
 import com.google.gson.Gson
 import com.sidharth.mosam.BuildConfig

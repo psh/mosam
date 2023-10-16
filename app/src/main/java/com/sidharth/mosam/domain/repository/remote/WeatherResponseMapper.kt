@@ -1,9 +1,10 @@
-package com.sidharth.mosam.data.remote
+package com.sidharth.mosam.domain.repository.remote
 
-import com.sidharth.mosam.domain.model.DailyForecast
-import com.sidharth.mosam.domain.model.Weather
-import com.sidharth.mosam.domain.model.WeatherData
-import com.sidharth.mosam.util.DrawableUtils
+import com.sidharth.mosam.domain.DailyForecast
+import com.sidharth.mosam.domain.Weather
+import com.sidharth.mosam.domain.WeatherData
+import com.sidharth.mosam.util.getBackgroundBasedOnTime
+import com.sidharth.mosam.util.getIconForWeather
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -11,7 +12,7 @@ import java.util.TimeZone
 
 object WeatherResponseMapper {
     fun mapWeatherResponseToWeatherData(response: WeatherResponse): WeatherData {
-        val background = DrawableUtils.getBackgroundBasedOnTime(response.current.dt, response.timezone)
+        val background = getBackgroundBasedOnTime(response.current.dt, response.timezone)
         val currentWeather = mapCurrentWeather(response.current, response.timezone)
         val dailyWeatherList = mapDailyWeather(response.daily, response.timezone)
         return WeatherData(background, currentWeather, dailyWeatherList)
@@ -51,7 +52,7 @@ object WeatherResponseMapper {
             DailyForecast(
                 day = it.dt.toEEE(timezone),
                 temp = it.temp.day,
-                icon = DrawableUtils.getIconForWeather(it.weather.firstOrNull()?.main.orEmpty())
+                icon = getIconForWeather(it.weather.firstOrNull()?.main.orEmpty())
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.sidharth.mosam.ui
+package com.sidharth.mosam
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -12,11 +12,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.flaviofaria.kenburnsview.RandomTransitionGenerator
-import com.sidharth.mosam.BaseApplication
 import com.sidharth.mosam.databinding.ActivityMainBinding
-import com.sidharth.mosam.ui.viewmodel.WeatherViewModel
-import com.sidharth.mosam.util.LocationUtils
-import com.sidharth.mosam.util.NetworkUtils
+import com.sidharth.mosam.util.getCurrentLocation
+import com.sidharth.mosam.util.startNetworkCallback
+import com.sidharth.mosam.util.stopNetworkCallback
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -44,12 +43,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        NetworkUtils.stopNetworkCallback(applicationContext)
+        stopNetworkCallback(applicationContext)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        NetworkUtils.stopNetworkCallback(applicationContext)
+        stopNetworkCallback(applicationContext)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            LocationUtils.getCurrentLocation(applicationContext)?.let {
+            getCurrentLocation(applicationContext)?.let {
                 weatherViewModel.getWeatherData(applicationContext, it.latitude, it.longitude)
             } ?: weatherViewModel.getWeatherData(applicationContext, 0.0, 0.0)
         } else {
@@ -87,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNetworkCallback() {
-        NetworkUtils.startNetworkCallback(
+        startNetworkCallback(
             context = applicationContext,
             onConnectionAvailable = { getWeatherData() },
             onConnectionLost = {}

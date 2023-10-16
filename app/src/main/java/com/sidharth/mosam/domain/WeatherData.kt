@@ -1,4 +1,4 @@
-package com.sidharth.mosam.domain.model
+package com.sidharth.mosam.domain
 
 import androidx.annotation.DrawableRes
 import com.sidharth.mosam.R

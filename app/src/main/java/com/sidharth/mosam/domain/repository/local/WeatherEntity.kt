@@ -1,4 +1,4 @@
-package com.sidharth.mosam.data.local
+package com.sidharth.mosam.domain.repository.local
 
 data class WeatherEntity(
     val id: Long = 0,

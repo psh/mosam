@@ -1,7 +1,7 @@
-package com.sidharth.mosam.data.remote
+package com.sidharth.mosam.domain.repository.remote
 
-import com.sidharth.mosam.domain.model.EmptyWeatherData
-import com.sidharth.mosam.domain.model.WeatherData
+import com.sidharth.mosam.domain.EmptyWeatherData
+import com.sidharth.mosam.domain.WeatherData
 
 class RemoteDataSource(
     private val weatherService: WeatherService

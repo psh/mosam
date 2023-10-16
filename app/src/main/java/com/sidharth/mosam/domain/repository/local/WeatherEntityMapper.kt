@@ -1,12 +1,12 @@
-package com.sidharth.mosam.data.local
+package com.sidharth.mosam.domain.repository.local
 
 import androidx.annotation.DrawableRes
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sidharth.mosam.R
-import com.sidharth.mosam.domain.model.DailyForecast
-import com.sidharth.mosam.domain.model.Weather
-import com.sidharth.mosam.domain.model.WeatherData
+import com.sidharth.mosam.domain.DailyForecast
+import com.sidharth.mosam.domain.Weather
+import com.sidharth.mosam.domain.WeatherData
 
 
 fun mapWeatherEntityToWeatherData(weatherEntity: WeatherEntity): WeatherData {

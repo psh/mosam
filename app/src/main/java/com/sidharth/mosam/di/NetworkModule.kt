@@ -1,7 +1,7 @@
 package com.sidharth.mosam.di
 
-import com.sidharth.mosam.data.remote.RemoteDataSource
-import com.sidharth.mosam.data.remote.WeatherService
+import com.sidharth.mosam.domain.repository.remote.RemoteDataSource
+import com.sidharth.mosam.domain.repository.remote.WeatherService
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,9 +25,5 @@ fun networkingModule() = module {
 
     single {
         WeatherService(httpClient = get())
-    }
-
-    single {
-        RemoteDataSource(weatherService = get())
     }
 }

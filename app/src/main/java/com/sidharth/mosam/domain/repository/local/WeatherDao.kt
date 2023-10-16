@@ -1,4 +1,4 @@
-package com.sidharth.mosam.data.local
+package com.sidharth.mosam.domain.repository.local
 
 import com.sidharth.mosam.WeatherQueries
 

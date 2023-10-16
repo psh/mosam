@@ -1,12 +1,14 @@
 package com.sidharth.mosam
 
 import android.app.Application
-import com.sidharth.mosam.di.appModule
-import com.sidharth.mosam.di.dbModule
+import android.content.Context
+import com.sidharth.mosam.di.driverModule
 import com.sidharth.mosam.di.networkingModule
-import org.koin.android.ext.koin.androidContext
+import com.sidharth.mosam.di.repositoryModule
+import com.sidharth.mosam.di.uiModule
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 class BaseApplication : Application() {
     companion object {
@@ -20,14 +22,18 @@ class BaseApplication : Application() {
         startKoin {
             // Log Koin into Android logger
             androidLogger()
-            // Reference Android context
-            androidContext(this@BaseApplication)
             // Load modules
             modules(
                 appModule(),
-                dbModule(this@BaseApplication),
-                networkingModule()
+                driverModule(),
+                repositoryModule(),
+                networkingModule(),
+                uiModule(),
             )
         }
+    }
+
+    private fun appModule() = module {
+        single<Context> { this@BaseApplication }
     }
 }

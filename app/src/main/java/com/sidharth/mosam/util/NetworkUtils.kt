@@ -22,46 +22,44 @@ class NetworkConnectivityCallback(
     }
 }
 
-object NetworkUtils {
+private var connectivityCallback: NetworkConnectivityCallback? = null
 
-    private var connectivityCallback: NetworkConnectivityCallback? = null
+fun startNetworkCallback(
+    context: Context,
+    onConnectionAvailable: () -> Unit,
+    onConnectionLost: () -> Unit,
+) {
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    fun startNetworkCallback(
-        context: Context,
-        onConnectionAvailable: () -> Unit,
-        onConnectionLost: () -> Unit,
-    ) {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val networkRequest = NetworkRequest.Builder()
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+        .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+        .build()
 
-        val networkRequest = NetworkRequest.Builder()
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
-                .build()
+    val callback = NetworkConnectivityCallback(onConnectionAvailable, onConnectionLost)
+    connectivityManager.registerNetworkCallback(networkRequest, callback)
+    connectivityCallback = callback
+}
 
-        val callback = NetworkConnectivityCallback(onConnectionAvailable, onConnectionLost)
-        connectivityManager.registerNetworkCallback(networkRequest, callback)
-        connectivityCallback = callback
-    }
-
-    fun stopNetworkCallback(context: Context) {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        connectivityCallback?.let {
-            connectivityManager.unregisterNetworkCallback(it)
-            connectivityCallback = null
-        }
-    }
-
-    fun isNetworkConnected(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkCapabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        return networkCapabilities != null && (
-                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+fun stopNetworkCallback(context: Context) {
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    connectivityCallback?.let {
+        connectivityManager.unregisterNetworkCallback(it)
+        connectivityCallback = null
     }
 }
+
+fun isNetworkConnected(context: Context): Boolean {
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val networkCapabilities =
+        connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+    return networkCapabilities != null && (
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                    networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+}
+

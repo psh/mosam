@@ -1,7 +1,7 @@
-package com.sidharth.mosam.data.local
+package com.sidharth.mosam.domain.repository.local
 
-import com.sidharth.mosam.domain.model.EmptyWeatherData
-import com.sidharth.mosam.domain.model.WeatherData
+import com.sidharth.mosam.domain.EmptyWeatherData
+import com.sidharth.mosam.domain.WeatherData
 
 class LocalDataSource(
     private val weatherDao: WeatherDao
