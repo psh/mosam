@@ -3,9 +3,8 @@ package com.sidharth.mosam.domain.usecase
 import android.content.Context
 import com.sidharth.mosam.domain.model.WeatherData
 import com.sidharth.mosam.domain.repository.WeatherDataRepository
-import javax.inject.Inject
 
-class GetWeatherDataUseCaseImpl @Inject constructor(
+class GetWeatherDataUseCaseImpl(
     private val weatherDataRepository: WeatherDataRepository
 ) : GetWeatherDataUseCase {
     override suspend fun execute(

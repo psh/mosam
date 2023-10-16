@@ -6,9 +6,8 @@ import com.sidharth.mosam.data.remote.RemoteDataSource
 import com.sidharth.mosam.domain.model.WeatherData
 import com.sidharth.mosam.domain.repository.WeatherDataRepository
 import com.sidharth.mosam.util.NetworkUtils
-import javax.inject.Inject
 
-class WeatherDataRepositoryImpl @Inject constructor(
+class WeatherDataRepositoryImpl(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : WeatherDataRepository {

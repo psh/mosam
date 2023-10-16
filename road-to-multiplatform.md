@@ -6,3 +6,4 @@
 5. Adopt KSP instead of KAPT as the annotation processor
     * Both Room and Dagger support using KSP - its faster and supports Kotlin better
 6. Swap Room for SqlDelight
+7. Swap Dagger for Koin

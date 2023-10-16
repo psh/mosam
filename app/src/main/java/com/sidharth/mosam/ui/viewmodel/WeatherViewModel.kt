@@ -8,9 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.sidharth.mosam.domain.model.WeatherData
 import com.sidharth.mosam.domain.usecase.GetWeatherDataUseCase
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class WeatherViewModel @Inject constructor(
+class WeatherViewModel(
     private val getWeatherDataUseCase: GetWeatherDataUseCase
 ) : ViewModel() {
     private val _weatherData = MutableLiveData<WeatherData>()

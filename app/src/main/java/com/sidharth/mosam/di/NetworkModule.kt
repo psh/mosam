@@ -2,24 +2,16 @@ package com.sidharth.mosam.di
 
 import com.sidharth.mosam.data.remote.RemoteDataSource
 import com.sidharth.mosam.data.remote.WeatherService
-import dagger.Module
-import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
-@Module
-class NetworkModule {
+private const val BASE_URL = "https://api.openweathermap.org/data/3.0/"
 
-    companion object {
-        private const val BASE_URL = "https://api.openweathermap.org/data/3.0/"
-    }
-
-    @Provides
-    @Singleton
-    fun provideWeatherService(): WeatherService {
+fun networkingModule() = module {
+    single<WeatherService> {
         // Log the network calls
         val okClient = OkHttpClient.Builder()
             .addNetworkInterceptor(
@@ -36,16 +28,10 @@ class NetworkModule {
                 .build()
         }
 
-        val weatherService: WeatherService by lazy {
-            retrofit.create(WeatherService::class.java)
-        }
-
-        return weatherService
+        retrofit.create(WeatherService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideRemoteDataSource(weatherService: WeatherService): RemoteDataSource {
-        return RemoteDataSource(weatherService)
+    single {
+        RemoteDataSource(weatherService = get())
     }
 }

@@ -1,34 +1,27 @@
 package com.sidharth.mosam.di
 
-import com.sidharth.mosam.data.local.LocalDataSource
-import com.sidharth.mosam.data.remote.RemoteDataSource
 import com.sidharth.mosam.data.repository.WeatherDataRepositoryImpl
 import com.sidharth.mosam.domain.repository.WeatherDataRepository
 import com.sidharth.mosam.domain.usecase.GetWeatherDataUseCase
 import com.sidharth.mosam.domain.usecase.GetWeatherDataUseCaseImpl
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import com.sidharth.mosam.ui.viewmodel.WeatherViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 
-@Module
-class AppModule {
-    @Provides
-    @Singleton
-    fun provideWeatherDataRepository(
-        localDataSource: LocalDataSource,
-        remoteDataSource: RemoteDataSource
-    ): WeatherDataRepository {
-        return WeatherDataRepositoryImpl(
-            localDataSource, remoteDataSource
+fun appModule() = module {
+
+    single<WeatherDataRepository> {
+        WeatherDataRepositoryImpl(
+            localDataSource = get(), remoteDataSource = get()
         )
     }
 
-    @Provides
-    @Singleton
-    fun provideGetWeatherDataUseCase(
-        weatherDataRepository: WeatherDataRepository
-    ): GetWeatherDataUseCase {
-        return GetWeatherDataUseCaseImpl(weatherDataRepository)
+    single<GetWeatherDataUseCase> {
+        GetWeatherDataUseCaseImpl(weatherDataRepository = get())
+    }
+
+    viewModel {
+        WeatherViewModel(getWeatherDataUseCase = get())
     }
 }

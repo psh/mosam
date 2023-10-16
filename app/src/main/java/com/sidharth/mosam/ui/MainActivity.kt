@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
@@ -16,21 +15,15 @@ import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import com.sidharth.mosam.BaseApplication
 import com.sidharth.mosam.databinding.ActivityMainBinding
 import com.sidharth.mosam.ui.viewmodel.WeatherViewModel
-import com.sidharth.mosam.ui.viewmodel.WeatherViewModelFactory
 import com.sidharth.mosam.util.LocationUtils
 import com.sidharth.mosam.util.NetworkUtils
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.RoundingMode
 import java.text.DecimalFormat
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var weatherViewModelFactory: WeatherViewModelFactory
-
-    private val weatherViewModel: WeatherViewModel by viewModels {
-        weatherViewModelFactory
-    }
+    private val weatherViewModel: WeatherViewModel by viewModel()
 
     private val activityMainBinding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -64,15 +57,10 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen()
         setContentView(activityMainBinding.root)
-        initDependencyInjection()
         setupNetworkCallback()
         setupTransitionGenerator()
         observeBindWeatherData()
         getWeatherData()
-    }
-
-    private fun initDependencyInjection() {
-        BaseApplication.instance.appComponent.inject(this)
     }
 
     private fun getWeatherData() {

@@ -69,9 +69,10 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
 
-    // di - Dagger
-    implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
+    // di - Koin
+    implementation(libs.koin.core)
+    implementation(libs.koin.coroutines)
+    implementation(libs.koin.android)
 
     // ui
     implementation(libs.kenburnsview) // ken burns effect

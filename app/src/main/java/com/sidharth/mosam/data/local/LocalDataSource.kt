@@ -2,9 +2,8 @@ package com.sidharth.mosam.data.local
 
 import com.sidharth.mosam.domain.model.EmptyWeatherData
 import com.sidharth.mosam.domain.model.WeatherData
-import javax.inject.Inject
 
-class LocalDataSource @Inject constructor(
+class LocalDataSource(
     private val weatherDao: WeatherDao
 ) {
     suspend fun upsertWeatherData(weatherData: WeatherData) {

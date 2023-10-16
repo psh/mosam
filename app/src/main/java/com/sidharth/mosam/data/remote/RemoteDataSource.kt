@@ -3,9 +3,8 @@ package com.sidharth.mosam.data.remote
 import com.sidharth.mosam.data.mapper.WeatherResponseMapper
 import com.sidharth.mosam.domain.model.EmptyWeatherData
 import com.sidharth.mosam.domain.model.WeatherData
-import javax.inject.Inject
 
-class RemoteDataSource @Inject constructor(
+class RemoteDataSource(
     private val weatherService: WeatherService
 ) {
     suspend fun getWeatherData(
