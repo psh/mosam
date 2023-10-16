@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("app.cash.sqldelight")
 }
 
 val mosamApiKey : String by project
@@ -58,9 +59,10 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.activity.ktx)
 
-    // database - Room
-    implementation(libs.room.ktx)
-    ksp(libs.room.compiler)
+    // database - SQLDelight
+    implementation(libs.sqldelight.android.driver)
+    implementation(libs.sqldelight.primitive.adapters)
+    implementation(libs.sqldelight.coroutines.extensions)
 
     // networking - Retrofit
     implementation(libs.retrofit)
@@ -74,4 +76,12 @@ dependencies {
     // ui
     implementation(libs.kenburnsview) // ken burns effect
     implementation(libs.core.splashscreen) // splash screen
+}
+
+sqldelight {
+    databases {
+        create("WeatherDatabase") {
+            packageName.set("com.sidharth.mosam")
+        }
+    }
 }

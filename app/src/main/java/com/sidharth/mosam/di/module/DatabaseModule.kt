@@ -1,8 +1,9 @@
 package com.sidharth.mosam.di.module
 
 import android.app.Application
-import androidx.room.Room
-import com.sidharth.mosam.data.local.AppDatabase
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import com.sidharth.mosam.WeatherDatabase
 import com.sidharth.mosam.data.local.LocalDataSource
 import com.sidharth.mosam.data.local.WeatherDao
 import dagger.Module
@@ -15,23 +16,19 @@ class DatabaseModule(
 ) {
     @Provides
     @Singleton
-    fun provideAppDatabase(): AppDatabase {
-        return Room.databaseBuilder(
-            application,
-            AppDatabase::class.java,
-            "mosam_database"
-        ).build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideWeatherDao(appDatabase: AppDatabase): WeatherDao {
-        return appDatabase.weatherDao()
-    }
-
-    @Provides
-    @Singleton
     fun provideLocalDataSource(weatherDao: WeatherDao): LocalDataSource {
         return LocalDataSource(weatherDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabaseDriver(): SqlDriver {
+        return AndroidSqliteDriver(WeatherDatabase.Schema, application, "mosam_database.db")
+    }
+
+    @Provides
+    fun provideSqlDelightDao(driver: SqlDriver) : WeatherDao {
+        val queries = WeatherDatabase(driver).weatherQueries
+        return WeatherDao(queries)
     }
 }

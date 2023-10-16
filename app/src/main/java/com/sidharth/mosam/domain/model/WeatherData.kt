@@ -14,12 +14,12 @@ data class Weather(
     val sunset: String,
     val temperature: Double,
     val feelsLike: Double,
-    val pressure: Int,
-    val humidity: Int,
-    val visibility: Int,
+    val pressure: Long,
+    val humidity: Long,
+    val visibility: Long,
     val uvi: Double,
     val windSpeed: Double,
-    val windDegree: Int,
+    val windDegree: Long,
     val weather: String
 )
 

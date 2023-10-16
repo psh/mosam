@@ -1,0 +1,33 @@
+CREATE TABLE weather_data
+(
+    id          INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    background  INTEGER NOT NULL,
+    sunrise     TEXT    NOT NULL,
+    sunset      TEXT    NOT NULL,
+    temperature REAL    NOT NULL,
+    feelsLike   REAL    NOT NULL,
+    pressure    INTEGER NOT NULL,
+    humidity    INTEGER NOT NULL,
+    visibility  INTEGER NOT NULL,
+    uvi         REAL    NOT NULL,
+    windSpeed   REAL    NOT NULL,
+    windDegree  INTEGER NOT NULL,
+    weather     TEXT    NOT NULL,
+    forecasts   TEXT    NOT NULL
+);
+
+queryAll:
+SELECT * FROM weather_data;
+
+deleteAll:
+DELETE FROM weather_data;
+
+insert:
+INSERT OR REPLACE INTO weather_data(
+    id, background, sunrise, sunset, temperature, feelsLike,
+    pressure, humidity, visibility, uvi, windSpeed,
+    windDegree, weather, forecasts) VALUES (
+    ?,?,?,?,?,?,
+    ?,?,?,?,?,
+    ?,?,?
+);

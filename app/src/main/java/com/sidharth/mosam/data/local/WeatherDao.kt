@@ -1,14 +1,28 @@
 package com.sidharth.mosam.data.local
 
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Upsert
+import com.sidharth.mosam.WeatherQueries
 
-@Dao
-interface WeatherDao {
-    @Upsert
-    suspend fun upsertWeatherData(weatherEntity: WeatherEntity)
+class WeatherDao(private val queries: WeatherQueries) {
 
-    @Query("select * from weather_data")
-    suspend fun getWeatherData(): WeatherEntity?
+    suspend fun insert(data: WeatherEntity) {
+        queries.deleteAll()
+
+        queries.insert(
+            0, data.background, data.sunrise,
+            data.sunset, data.temperature, data.feelsLike, data.pressure,
+            data.humidity, data.visibility, data.uvi,
+            data.windSpeed, data.windDegree, data.weather, data.forecasts
+        )
+    }
+
+    suspend fun selectAll(): WeatherEntity? {
+        val data = queries.queryAll().executeAsOneOrNull() ?: return null
+
+        return WeatherEntity(
+            data.id, data.background, data.sunrise, data.sunset,
+            data.temperature, data.feelsLike, data.pressure, data.humidity,
+            data.visibility, data.uvi, data.windSpeed, data.windDegree,
+            data.weather, data.forecasts
+        )
+    }
 }
