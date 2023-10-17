@@ -1,6 +1,6 @@
 package com.sidharth.mosam.di
 
-import com.sidharth.mosam.domain.repository.remote.RemoteDataSource
+import co.touchlab.kermit.Logger
 import com.sidharth.mosam.domain.repository.remote.WeatherService
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
@@ -15,7 +15,9 @@ fun networkingModule() = module {
                     followRedirects(true)
                 }
                 addNetworkInterceptor(
-                    HttpLoggingInterceptor().apply {
+                    HttpLoggingInterceptor { message ->
+                        Logger.withTag("HttpClient").d(message)
+                    }.apply {
                         level = HttpLoggingInterceptor.Level.BODY
                     }
                 )

@@ -8,5 +8,4 @@ fun uiModule() = module {
     viewModel {
         WeatherViewModel(useCase = get())
     }
-
 }

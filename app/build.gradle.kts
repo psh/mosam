@@ -78,6 +78,10 @@ dependencies {
     // ui
     implementation(libs.kenburnsview) // ken burns effect
     implementation(libs.core.splashscreen) // splash screen
+
+    // logging
+    implementation(libs.kermit)
+    implementation(libs.kermit.koin)
 }
 
 sqldelight {
