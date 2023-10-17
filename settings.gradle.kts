@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "mosam"
 
-include(":app")
+include(":app", ":shared")

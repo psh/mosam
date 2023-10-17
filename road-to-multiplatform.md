@@ -7,3 +7,6 @@
     * Both Room and Dagger support using KSP - its faster and supports Kotlin better
 6. Swap Room for SqlDelight
 7. Swap Dagger for Koin
+8. Introduce Kermit logger
+9. Simplify packaging
+10. Add KMP module as a way to hold the library dependencies

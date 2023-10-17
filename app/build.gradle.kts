@@ -46,42 +46,26 @@ android {
 
 dependencies {
 
+    implementation(project(":shared"))
+
     implementation(libs.android.ktx.core)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 
     // lifecycle
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.activity.ktx)
 
-    // database - SQLDelight
-    implementation(libs.sqldelight.android.driver)
-    implementation(libs.sqldelight.primitive.adapters)
-    implementation(libs.sqldelight.coroutines.extensions)
-
-    // networking - Ktor
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.okhttp)
-    implementation(libs.logging.interceptor)
-    implementation(libs.gson)
-
-    // di - Koin
-    implementation(libs.koin.core)
-    implementation(libs.koin.coroutines)
-    implementation(libs.koin.android)
-
     // ui
     implementation(libs.kenburnsview) // ken burns effect
     implementation(libs.core.splashscreen) // splash screen
 
-    // logging
-    implementation(libs.kermit)
-    implementation(libs.kermit.koin)
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 }
 
 sqldelight {
